@@ -2,18 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permissions required for app blocking functionality -->
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+    <!-- 🔐 Required for detecting foreground apps -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
 
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
-        tools:ignore="QueryAllPackagesPermission" />
+    <!-- 🔐 Required to show blocking overlay -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
+    <!-- 🔐 Required if you run blocking logic continuously -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 🔔 Optional: notifications -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -31,6 +32,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".service.AppBlockAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_config" />
+        </service>
+
     </application>
 
 </manifest>
