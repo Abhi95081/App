@@ -52,8 +52,8 @@ kotlin {
             // WorkManager (for scheduling)
             implementation("androidx.work:work-runtime-ktx:2.9.0")
 
-            // Charts library (for statistics)
-            implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+//            // Charts library (for statistics)
+//            implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
